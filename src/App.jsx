@@ -16,71 +16,51 @@ const characterMap = [
     id: 1,
     name: 'Monkey D. Luffy',
     image: luffy,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 2,
     name: 'Roronoa Zoro',
     image: zoro,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 3,
     name: 'Nami',
     image: nami,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 5,
     name: 'Vinsmoke Sanji',
     image: sanji,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 6,
     name: 'Tony Tony Chopper',
     image: chopper,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 4,
     name: 'Usopp',
     image: usopp,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 7,
     name: 'Robin',
     image: robin,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 8,
     name: 'Franky',
     image: franky,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 9,
     name: 'Brook',
     image: brook,
-    hasClick: false,
-    numOfClick: 0
   },
   {
     id: 10,
     name: 'Jinbe',
     image: jinbe,
-    hasClick: false,
-    numOfClick: 0
   },
 ];
 
@@ -88,7 +68,6 @@ export const App = () => {
   const [bestScore, setBestScore] = useState(() => {
     let savedBestScore = localStorage.getItem("memoryCard");
     return savedBestScore ? Number(savedBestScore) : 0;
-      
   });
   const [currentScore, setCurrentScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
