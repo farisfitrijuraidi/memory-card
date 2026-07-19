@@ -15,58 +15,126 @@ const characterMap = [
   {
     id: 1,
     name: 'Monkey D. Luffy',
-    image: luffy
+    image: luffy,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 2,
     name: 'Roronoa Zoro',
-    image: zoro
+    image: zoro,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 3,
     name: 'Nami',
-    image: nami
+    image: nami,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 5,
     name: 'Vinsmoke Sanji',
-    image: sanji
+    image: sanji,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 6,
     name: 'Tony Tony Chopper',
-    image: chopper
+    image: chopper,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 4,
     name: 'Usopp',
-    image: usopp
+    image: usopp,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 7,
     name: 'Robin',
-    image: robin
+    image: robin,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 8,
     name: 'Franky',
-    image: franky
+    image: franky,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 9,
     name: 'Brook',
-    image: brook
+    image: brook,
+    hasClick: false,
+    numOfClick: 0
   },
   {
     id: 10,
     name: 'Jinbe',
-    image: jinbe
+    image: jinbe,
+    hasClick: false,
+    numOfClick: 0
   },
 ];
 
 export const App = () => {
+  const [bestScore, setBestScore] = useState(0);
+  const [currentScore, setCurrentScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [selectedId, setSelectedId] = useState([]);
+  const [copyArr, setCopyArr] = useState([...characterMap]);
   
 
+  useEffect(() => {
+    const myScore = bestScore;
+    const myJSON = JSON.stringify(myScore);
+    localStorage.setItem("memoryCard", myJSON);
+
+    // const loadFromLocal = () => {
+    //   let text = localStorage.getItem("memoryCard");
+    //   if (text) {
+    //       let obj = JSON.parse(text);
+    //       Object.assign(bestScore, obj);
+    //   }
+    // };
+  }, [bestScore])
+
+  const handleClick = (obj) => {
+    const foundId = selectedId.includes(obj.id);
+    const nextScore = currentScore + 1;
+    if (!foundId) {
+      setSelectedId([...selectedId, obj.id]);
+      setCurrentScore(s => s + 1);
+      setCopyArr(handleShuffle([...characterMap]));
+      if (nextScore > bestScore) {
+        setBestScore(nextScore);
+      }
+    } else {
+      setGameOver(true);
+    }
+  };
+
+  const handleShuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const handleReset = () => {
+    setGameOver(false);
+    setCurrentScore(0);
+    setCopyArr([...characterMap]);
+    setSelectedId([]);
+  };
   // useEffect(() => {
   //   const fetchOnePieceCharacter = async () => {
   //     const url = `https://api.jikan.moe/v4/characters/40/pictures`;
@@ -86,9 +154,17 @@ export const App = () => {
 
   return (
     <>
-      {characterMap.map(obj => {
-        return <img key={obj.id} src={obj.image}></img>
+      <p>Best Score: {bestScore}</p>
+      <p>Current Score: {currentScore}</p>
+      {copyArr.map(obj => {
+        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.image}></img></button>
       })}
+      {gameOver ? (
+        <div>
+          <p>Game Over!</p>
+          <button type="button" onClick={handleReset}>Try Again?</button>
+        </div>
+      ) : null}
     </>
   );
 }
