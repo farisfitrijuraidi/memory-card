@@ -85,7 +85,11 @@ const characterMap = [
 ];
 
 export const App = () => {
-  const [bestScore, setBestScore] = useState(0);
+  const [bestScore, setBestScore] = useState(() => {
+    let savedBestScore = localStorage.getItem("memoryCard");
+    return savedBestScore ? Number(savedBestScore) : 0;
+      
+  });
   const [currentScore, setCurrentScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [selectedId, setSelectedId] = useState([]);
@@ -93,17 +97,7 @@ export const App = () => {
   
 
   useEffect(() => {
-    const myScore = bestScore;
-    const myJSON = JSON.stringify(myScore);
-    localStorage.setItem("memoryCard", myJSON);
-
-    // const loadFromLocal = () => {
-    //   let text = localStorage.getItem("memoryCard");
-    //   if (text) {
-    //       let obj = JSON.parse(text);
-    //       Object.assign(bestScore, obj);
-    //   }
-    // };
+    localStorage.setItem("memoryCard", bestScore);
   }, [bestScore])
 
   const handleClick = (obj) => {
