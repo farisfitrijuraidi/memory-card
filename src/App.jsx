@@ -1,68 +1,6 @@
 import './App.css'
 import { useState, useEffect } from 'react';
-import luffy from './Assets/luffy.png';
-import zoro from './Assets/zoro.avif';
-import nami from './Assets/nami.png';
-import sanji from './Assets/sanji.webp';
-import usopp from './Assets/usopp.webp';
-import chopper from './Assets/chopper.avif';
-import robin from './Assets/robin.avif';
-import franky from './Assets/franky.jpg';
-import brook from './Assets/brook.jpg';
-import jinbe from './Assets/jinbe.jpeg';
-
-const characterMap = [
-  {
-    id: 1,
-    name: 'Monkey D. Luffy',
-    image: luffy,
-  },
-  {
-    id: 2,
-    name: 'Roronoa Zoro',
-    image: zoro,
-  },
-  {
-    id: 3,
-    name: 'Nami',
-    image: nami,
-  },
-  {
-    id: 5,
-    name: 'Vinsmoke Sanji',
-    image: sanji,
-  },
-  {
-    id: 6,
-    name: 'Tony Tony Chopper',
-    image: chopper,
-  },
-  {
-    id: 4,
-    name: 'Usopp',
-    image: usopp,
-  },
-  {
-    id: 7,
-    name: 'Robin',
-    image: robin,
-  },
-  {
-    id: 8,
-    name: 'Franky',
-    image: franky,
-  },
-  {
-    id: 9,
-    name: 'Brook',
-    image: brook,
-  },
-  {
-    id: 10,
-    name: 'Jinbe',
-    image: jinbe,
-  },
-];
+import { characterMap } from './Components/onepiece.jsx';
 
 export const App = () => {
   const [bestScore, setBestScore] = useState(() => {
@@ -74,10 +12,9 @@ export const App = () => {
   const [selectedId, setSelectedId] = useState([]);
   const [copyArr, setCopyArr] = useState([...characterMap]);
   
-
   useEffect(() => {
     localStorage.setItem("memoryCard", bestScore);
-  }, [bestScore])
+  }, [bestScore]);
 
   const handleClick = (obj) => {
     const foundId = selectedId.includes(obj.id);
@@ -108,6 +45,11 @@ export const App = () => {
     setCopyArr([...characterMap]);
     setSelectedId([]);
   };
+
+  const handleResetBestScore = () => {
+    localStorage.removeItem("memoryCard");
+    setBestScore(0);
+  };
   // useEffect(() => {
   //   const fetchOnePieceCharacter = async () => {
   //     const url = `https://api.jikan.moe/v4/characters/40/pictures`;
@@ -129,6 +71,7 @@ export const App = () => {
     <>
       <p>Best Score: {bestScore}</p>
       <p>Current Score: {currentScore}</p>
+      <button onClick={handleResetBestScore}>Reset Best Score</button>
       {copyArr.map(obj => {
         return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.image}></img></button>
       })}
