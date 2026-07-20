@@ -1,10 +1,114 @@
+:root {
+    --button-active: #e7e7e7;
+    --button-inactive: rgb(241, 241, 241);
+    --button-background: #ebecee;
+    --button-border: #cbcacf;
+    --horizontal-line: #DC143C;
+    --last-name: #DC143C;
+    
+    --bg-main: #2C6E49;
+    
+    --border-light-grey: #E5E7EB;
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+
+    --font-ui: 'Inter', sans-serif;
+    --font-size-standard: 1rem;
+    --font-size-smaller: 0.75rem;
+
+    --box-shadow-focus: 0 0 0 3px rgba(0, 0, 255, 0.2);
+    --standard-box-padding: 8px 1rem;
+}
+
+@font-face {
+    font-family: 'Averia Libre';
+    src: url('./Assets/fonts/AveriaLibre-Bold.woff2') format('woff2'),
+        url('./Assets/fonts/AveriaLibre-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./Assets/fonts/Inter-Regular.woff2') format('woff2'),
+        url('./Assets/fonts/Inter-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  min-width: 100vh;
+  min-height: 100vh;
+  background-image: url('/onepiecebackground.png');
+  background-size: cover;
+}
+
+.main-container {
+  min-width: 100vh;
+}
+
 img {
   width: 278px;
   height: 200px;
+  padding: var(--space-sm);
+}
+
+button {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--space-sm);
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0.1em 0.1em 2.5em rgb(255 247 0 / 80%);
+}
+
+.main-title {
+  font-family: 'Averia Libre';
+  display: flex;
+  justify-content: center;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 0 0 10px rgb(255, 247, 0), 0 0 20px #ff8800, 0 0 30px #ff5500;
+  background: linear-gradient(.25turn, rgb(0, 0, 255, 0.3), black, rgb(0, 0, 255, 0.3))
+}
+
+.button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding: var(--space-sm);
+}
+
+.best-score-container {
+  background-image: url('/bestscoreboard.png');
+  width: 200px;
+  height: 80px;
+  background-size: contain;
+  position: relative;
+}
+
+.best-score {
+  font-family: 'Inter';
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  left: 38px;
+  width: 24px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
 }

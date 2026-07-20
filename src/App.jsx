@@ -1,8 +1,10 @@
 import './App.css'
 import { useState, useEffect } from 'react';
 import { characterMap } from './Components/onepiece.jsx';
+import { fetchCatData } from './Components/cat.jsx';
 
 export const App = () => {
+  /// --- General state -------------------------------------------------------------------------------------------------------
   const [bestScore, setBestScore] = useState(() => {
     let savedBestScore = localStorage.getItem("memoryCard");
     return savedBestScore ? Number(savedBestScore) : 0;
@@ -10,22 +12,50 @@ export const App = () => {
   const [currentScore, setCurrentScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [selectedId, setSelectedId] = useState([]);
+  const [catArr, setCatArr] = useState();
+  const [theme, setTheme] = useState([{
+    option: 'One Piece',
+    selected: true 
+  }, {
+    option: 'Cat',
+    selected: false
+  }]);
   const [copyArr, setCopyArr] = useState([...characterMap]);
+  const foundTheme = theme.find(({selected}) => selected === true).option;
+  const themeData = {
+    'One Piece': characterMap,
+    'Cat': catArr || []
+  };
   
+  /// --- useEffect -------------------------------------------------------------------------------------------------------
   useEffect(() => {
     localStorage.setItem("memoryCard", bestScore);
   }, [bestScore]);
 
+  useEffect(() => {
+    const openCatPromise = async () => {
+      try {
+        const result = await fetchCatData();
+        setCatArr(result);
+      } catch (error) {
+        console.error('Failed to call the function :', error);
+      }
+    };
+    openCatPromise();
+  },[]);
+
+  /// --- General function -------------------------------------------------------------------------------------------------------
   const handleClick = (obj) => {
     const foundId = selectedId.includes(obj.id);
     const nextScore = currentScore + 1;
+    const arr = themeData[foundTheme];
     if (!foundId) {
       setSelectedId([...selectedId, obj.id]);
       setCurrentScore(s => s + 1);
-      setCopyArr(handleShuffle([...characterMap]));
       if (nextScore > bestScore) {
         setBestScore(nextScore);
       }
+      setCopyArr(handleShuffle([...arr]));
     } else {
       setGameOver(true);
     }
@@ -40,9 +70,10 @@ export const App = () => {
   };
 
   const handleReset = () => {
+    const arr = themeData[foundTheme];
     setGameOver(false);
     setCurrentScore(0);
-    setCopyArr([...characterMap]);
+    setCopyArr([...arr]);
     setSelectedId([]);
   };
 
@@ -50,37 +81,45 @@ export const App = () => {
     localStorage.removeItem("memoryCard");
     setBestScore(0);
   };
-  // useEffect(() => {
-  //   const fetchOnePieceCharacter = async () => {
-  //     const url = `https://api.jikan.moe/v4/characters/40/pictures`;
-  //     try {
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         throw new Error('The server rejected our request');
-  //       }
-  //       const data = await response.json();
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.error('Failed to fetch One Piece Character :', error);
-  //     }
-  //   }
-  //   fetchOnePieceCharacter();
-  // }, [])
 
+  const handleChooseTheme = (e) => {
+    setTheme(p => p.map(item => {
+      if (e.target.value === item.option) {
+        return {...item, selected: true};
+      }
+      return {...item, selected: false};
+    }));
+    if (e.target.value === "One Piece") {
+      setCopyArr([...characterMap]);
+    } else if (e.target.value === "Cat") {
+      setCopyArr(catArr);
+    }
+    setBestScore(0);
+    setCurrentScore(0);
+    setGameOver(false);
+  };
+  
   return (
-    <>
-      <p>Best Score: {bestScore}</p>
+    <div className='main-container'>
+      <p className='main-title'>Memory Game</p>
+      <div className='best-score-container'>
+        <p className='best-score'>{bestScore}</p>
+      </div>
       <p>Current Score: {currentScore}</p>
       <button onClick={handleResetBestScore}>Reset Best Score</button>
-      {copyArr.map(obj => {
-        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.image}></img></button>
+      <button value="One Piece" onClick={handleChooseTheme}>One Piece</button>
+      <button value="Cat" onClick={handleChooseTheme}>Cat</button>
+      <div className='button-wrapper'>
+        {copyArr.map(obj => {
+        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.url}></img><span>{obj.name}</span></button>
       })}
+      </div>
       {gameOver ? (
         <div>
           <p>Game Over!</p>
           <button type="button" onClick={handleReset}>Try Again?</button>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

@@ -13,51 +13,51 @@ export const characterMap = [
   {
     id: 1,
     name: 'Monkey D. Luffy',
-    image: luffy,
+    url: luffy,
   },
   {
     id: 2,
     name: 'Roronoa Zoro',
-    image: zoro,
+    url: zoro,
   },
   {
     id: 3,
     name: 'Nami',
-    image: nami,
+    url: nami,
   },
   {
     id: 4,
     name: 'Usopp',
-    image: usopp,
+    url: usopp,
   },
   {
     id: 5,
     name: 'Vinsmoke Sanji',
-    image: sanji,
+    url: sanji,
   },
   {
     id: 6,
     name: 'Tony Tony Chopper',
-    image: chopper,
+    url: chopper,
   },
   {
     id: 7,
     name: 'Robin',
-    image: robin,
+    url: robin,
   },
   {
     id: 8,
     name: 'Franky',
-    image: franky,
+    url: franky,
   },
   {
     id: 9,
     name: 'Brook',
-    image: brook,
+    url: brook,
   },
   {
     id: 10,
     name: 'Jinbe',
-    image: jinbe,
+    url: jinbe,
   },
 ];
