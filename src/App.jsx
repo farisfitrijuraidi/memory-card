@@ -101,11 +101,15 @@ export const App = () => {
   
   return (
     <div className='main-container'>
-      <p className='main-title'>Memory Game</p>
-      <div className='best-score-container'>
-        <p className='best-score'>{bestScore}</p>
+      <div className="score-container">
+        <div className="current-score-container">
+          <p className='current-score'>{currentScore}</p>
+        </div>
+        <p className='main-title'>Memory Game</p>
+        <div className='best-score-container'>
+          <p className='best-score'>{bestScore}</p>
+        </div>
       </div>
-      <p>Current Score: {currentScore}</p>
       <button onClick={handleResetBestScore}>Reset Best Score</button>
       <button value="One Piece" onClick={handleChooseTheme}>One Piece</button>
       <button value="Cat" onClick={handleChooseTheme}>Cat</button>

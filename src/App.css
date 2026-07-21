@@ -78,10 +78,11 @@ button:hover {
   font-family: 'Averia Libre';
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 4rem;
   color: white;
   text-shadow: 0 0 10px rgb(255, 247, 0), 0 0 20px #ff8800, 0 0 30px #ff5500;
-  background: linear-gradient(.25turn, rgb(0, 0, 255, 0.3), black, rgb(0, 0, 255, 0.3))
+  /* background: linear-gradient(.25turn, rgb(0, 0, 255, 0.3), black, rgb(0, 0, 255, 0.3)) */
 }
 
 .button-wrapper {
@@ -91,22 +92,54 @@ button:hover {
   padding: var(--space-sm);
 }
 
+.score-container {
+  display: flex;
+}
+
 .best-score-container {
   background-image: url('/bestscoreboard.png');
-  width: 200px;
-  height: 80px;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
+  margin: 0 auto;
+  width: 350px; 
+  aspect-ratio: 820 / 304; 
 }
+
 
 .best-score {
   font-family: 'Inter';
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: white;
   font-weight: bold;
   position: absolute;
-  top: 20px;
-  left: 38px;
+  top: 40px;
+  left: 74px;
+  width: 24px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+}
+
+.current-score-container {
+  background-image: url('/currentscoreboard.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 350px;
+  position: relative;
+  margin: 0 auto;
+  aspect-ratio: 826 / 302;
+}
+
+.current-score {
+  font-family: 'Inter';
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 44px;
+  left: 56px;
   width: 24px;
   height: 27px;
   display: flex;
