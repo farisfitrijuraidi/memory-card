@@ -69,7 +69,7 @@ export const App = () => {
     return arr;
   };
 
-  const handleReset = () => {
+  const handleRestart = () => {
     const arr = themeData[foundTheme];
     setGameOver(false);
     setCurrentScore(0);
@@ -84,14 +84,14 @@ export const App = () => {
 
   const handleChooseTheme = (e) => {
     setTheme(p => p.map(item => {
-      if (e.target.value === item.option) {
+      if (e.target.dataset.value === item.option) {
         return {...item, selected: true};
       }
       return {...item, selected: false};
     }));
-    if (e.target.value === "One Piece") {
+    if (e.target.dataset.value === "One Piece") {
       setCopyArr([...characterMap]);
-    } else if (e.target.value === "Cat") {
+    } else if (e.target.dataset.value === "Cat") {
       setCopyArr(catArr);
     }
     setBestScore(0);
@@ -100,7 +100,7 @@ export const App = () => {
   };
   
   return (
-    <div className='main-container'>
+    <div className={foundTheme === 'One Piece' ? 'main-container-op' : 'main-container-cat'}>
       <div className="score-container">
         <div className="current-score-container">
           <p className='current-score'>{currentScore}</p>
@@ -111,9 +111,10 @@ export const App = () => {
           <div className='reset-best-score' onClick={handleResetBestScore}></div>
         </div>
       </div>
-      
-      <button value="One Piece" onClick={handleChooseTheme}>One Piece</button>
-      <button value="Cat" onClick={handleChooseTheme}>Cat</button>
+      <div className="theme-button">
+        <div className='one-piece-button' data-value="One Piece" onClick={handleChooseTheme}></div>
+        <div className='cat-button' data-value="Cat" onClick={handleChooseTheme}></div>
+      </div>
       <div className='button-wrapper'>
         {copyArr.map(obj => {
         return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.url}></img><span>{obj.name}</span></button>
@@ -122,7 +123,7 @@ export const App = () => {
       {gameOver ? (
         <div>
           <p>Game Over!</p>
-          <button type="button" onClick={handleReset}>Try Again?</button>
+          <button type="button" onClick={handleRestart}>Try Again?</button>
         </div>
       ) : null}
     </div>

@@ -49,12 +49,21 @@
 body {
   min-width: 100vh;
   min-height: 100vh;
+}
+
+.main-container-op {
+  min-width: 100vh;
+  min-height: 100vh;
   background-image: url('/onepiecebackground.png');
   background-size: cover;
 }
 
-.main-container {
+.main-container-cat {
   min-width: 100vh;
+  min-height: 100vh;
+  background-image: url('/catbackground2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 img {
@@ -79,7 +88,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem;
+  font-size: 4.5rem;
   color: white;
   text-shadow: 0 0 10px rgb(255, 247, 0), 0 0 20px #ff8800, 0 0 30px #ff5500;
   /* background: linear-gradient(.25turn, rgb(0, 0, 255, 0.3), black, rgb(0, 0, 255, 0.3)) */
@@ -147,24 +156,70 @@ button:hover {
 }
 
 .reset-best-score {
-  background-image: url('/resetbestscorebutton.png');
+  background-image: url('/resetbestscorebutton2.png');
   background-size: cover;
   background-repeat: no-repeat;
-  width: 200px;
-  aspect-ratio: 776 / 322;
+  width: 150px;
+  aspect-ratio: 3058 / 1238;
   position: absolute;
-  top: 29px;
-  left: 330px;
+  top: 42px;
+  left: 345px;
 }
 
 .reset-best-score:hover {
   cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.05s ease;
 }
 
 .reset-best-score:active {
   /* box-shadow:
       inset -2px -2px 3px rgb(255 255 255 / 0.6),
       inset 2px 2px 3px rgb(0 0 0 / 0.6); */
+  transform: scale(0.95); 
+  transition: transform 0.05s ease;
+}
+
+.theme-button {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.one-piece-button {
+  background-image: url('/onepiecebutton2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  aspect-ratio: 2676 / 1140;
+  width: 150px;
+}
+
+.one-piece-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.05s ease;
+}
+
+.one-piece-button:active {
+  transform: scale(0.95); 
+  transition: transform 0.05s ease;
+}
+
+.cat-button {
+  background-image: url('/catbutton2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  aspect-ratio: 1358 / 1314;
+  width: 70px;
+}
+
+.cat-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.05s ease;
+}
+
+.cat-button:active {
   transform: scale(0.95); 
   transition: transform 0.05s ease;
 }
