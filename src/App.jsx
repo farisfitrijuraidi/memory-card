@@ -108,9 +108,10 @@ export const App = () => {
         <p className='main-title'>Memory Game</p>
         <div className='best-score-container'>
           <p className='best-score'>{bestScore}</p>
+          <div className='reset-best-score' onClick={handleResetBestScore}></div>
         </div>
       </div>
-      <button onClick={handleResetBestScore}>Reset Best Score</button>
+      
       <button value="One Piece" onClick={handleChooseTheme}>One Piece</button>
       <button value="Cat" onClick={handleChooseTheme}>Cat</button>
       <div className='button-wrapper'>

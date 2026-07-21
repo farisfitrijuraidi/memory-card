@@ -145,3 +145,26 @@ button:hover {
   display: flex;
   justify-content: center;
 }
+
+.reset-best-score {
+  background-image: url('/resetbestscorebutton.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 200px;
+  aspect-ratio: 776 / 322;
+  position: absolute;
+  top: 29px;
+  left: 330px;
+}
+
+.reset-best-score:hover {
+  cursor: pointer;
+}
+
+.reset-best-score:active {
+  /* box-shadow:
+      inset -2px -2px 3px rgb(255 255 255 / 0.6),
+      inset 2px 2px 3px rgb(0 0 0 / 0.6); */
+  transform: scale(0.95); 
+  transition: transform 0.05s ease;
+}
