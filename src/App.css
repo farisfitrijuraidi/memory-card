@@ -293,3 +293,26 @@ button:hover {
   left: 290px;
   text-shadow: 0 0 7px black;
 }
+
+.try-again {
+  background-image: url('/tryagainbutton.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  aspect-ratio: 4096 / 2414;
+  width: 200px;
+  position: absolute;
+  top: 570px;
+  left: 150px;
+
+}
+
+.try-again:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.05s ease;
+}
+
+.try-again:active {
+  transform: scale(0.95); 
+  transition: transform 0.05s ease;
+}

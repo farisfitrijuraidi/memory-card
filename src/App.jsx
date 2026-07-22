@@ -94,7 +94,6 @@ export const App = () => {
     } else if (e.target.dataset.value === "Cat") {
       setCopyArr(catArr);
     }
-    setBestScore(0);
     setCurrentScore(0);
     setGameOver(false);
   };
@@ -125,8 +124,8 @@ export const App = () => {
           <div className='game-over'>
             <span className='final-current-score'>{currentScore}</span>
             <span className='final-best-score'>{bestScore}</span>
+            <div className='try-again' onClick={handleRestart}></div>
           </div>
-          <button type="button" onClick={handleRestart}>Try Again?</button>
         </div>
       ) : null}
     </div>
