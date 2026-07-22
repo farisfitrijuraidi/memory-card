@@ -117,7 +117,7 @@ export const App = () => {
       </div>
       <div className='button-wrapper'>
         {copyArr.map(obj => {
-        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.url}></img><span>{obj.name}</span></button>
+        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.url}></img><span className='object-name'>{obj.name}</span></button>
       })}
       </div>
       {gameOver ? (

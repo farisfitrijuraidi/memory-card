@@ -40,6 +40,24 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Courgette';
+    src: url('./Assets/fonts/Courgette-Regular.woff2') format('woff2'),
+        url('./Assets/fonts/Courgette-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Merienda';
+    src: url('./Assets/fonts/Merienda-Regular.woff2') format('woff2'),
+        url('./Assets/fonts/Merienda-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -76,6 +94,12 @@ button {
   display: flex;
   flex-direction: column;
   border-radius: var(--space-sm);
+}
+
+.object-name {
+  /* font-family: 'Merienda'; */
+  font-family: 'Courgette';
+  font-size: large;
 }
 
 button:hover {
