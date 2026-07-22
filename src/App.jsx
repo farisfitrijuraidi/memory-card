@@ -121,8 +121,11 @@ export const App = () => {
       })}
       </div>
       {gameOver ? (
-        <div>
-          <p>Game Over!</p>
+        <div className="game-over-UI">
+          <div className='game-over'>
+            <span className='final-current-score'>{currentScore}</span>
+            <span className='final-best-score'>{bestScore}</span>
+          </div>
           <button type="button" onClick={handleRestart}>Try Again?</button>
         </div>
       ) : null}
