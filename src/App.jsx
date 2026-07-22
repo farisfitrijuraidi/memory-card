@@ -11,6 +11,7 @@ export const App = () => {
   });
   const [currentScore, setCurrentScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [win, setWin] = useState(false);
   const [selectedId, setSelectedId] = useState([]);
   const [catArr, setCatArr] = useState();
   const [theme, setTheme] = useState([{
@@ -26,6 +27,7 @@ export const App = () => {
     'One Piece': characterMap,
     'Cat': catArr || []
   };
+  const arrlength = copyArr.length;
   
   /// --- useEffect -------------------------------------------------------------------------------------------------------
   useEffect(() => {
@@ -48,7 +50,11 @@ export const App = () => {
   const handleClick = (obj) => {
     const foundId = selectedId.includes(obj.id);
     const nextScore = currentScore + 1;
+    const nextLengthSelectedId = selectedId.length + 1;
     const arr = themeData[foundTheme];
+    if (nextLengthSelectedId === arrlength) {
+      setWin(true);
+    }
     if (!foundId) {
       setSelectedId([...selectedId, obj.id]);
       setCurrentScore(s => s + 1);
@@ -97,6 +103,12 @@ export const App = () => {
     setCurrentScore(0);
     setGameOver(false);
   };
+
+  const handlePlayAgain = () => {
+    setWin(false);
+    setCurrentScore(0);
+    setSelectedId([]);
+  }
   
   return (
     <div className={foundTheme === 'One Piece' ? 'main-container-op' : 'main-container-cat'}>
@@ -126,6 +138,12 @@ export const App = () => {
             <span className='final-best-score'>{bestScore}</span>
             <div className='try-again' onClick={handleRestart}></div>
           </div>
+        </div>
+      ) : null}
+      {win ? (
+        <div className='win-UI'>
+          <div className='win'></div>
+          <div className='play-again' onClick={handlePlayAgain}>Play Again?</div>
         </div>
       ) : null}
     </div>
