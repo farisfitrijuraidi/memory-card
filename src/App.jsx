@@ -142,8 +142,9 @@ export const App = () => {
       ) : null}
       {win ? (
         <div className='win-UI'>
-          <div className='win'></div>
-          <div className='play-again' onClick={handlePlayAgain}>Play Again?</div>
+          <div className='win'>
+            <div className='play-again' onClick={handlePlayAgain}></div>
+          </div>
         </div>
       ) : null}
     </div>

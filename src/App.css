@@ -337,3 +337,25 @@ button:hover {
   width: 500px;
   position: relative;
 }
+
+.play-again {
+  background-image: url('/playagainbutton2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  aspect-ratio: 2620 / 962;
+  width: 200px;
+  position: absolute;
+  top: 250px;
+  left: 170px;
+}
+
+.play-again:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.05s ease;
+}
+
+.play-again:active {
+  transform: scale(0.95); 
+  transition: transform 0.05s ease;
+}
