@@ -1,7 +1,7 @@
 import './App.css'
-import { useState, useEffect } from 'react';
-import { characterMap } from './Components/onepiece.jsx';
-import { fetchCatData } from './Components/cat.jsx';
+import { useState, useEffect, useRef } from 'react';
+import { characterMap } from './components/onepiece.jsx';
+import { fetchCatData } from './components/cat.jsx';
 
 export const App = () => {
   /// --- General state -------------------------------------------------------------------------------------------------------
@@ -14,22 +14,20 @@ export const App = () => {
   const [win, setWin] = useState(false);
   const [selectedId, setSelectedId] = useState([]);
   const [catArr, setCatArr] = useState();
-  const [theme, setTheme] = useState([{
-    option: 'One Piece',
-    selected: true 
-  }, {
-    option: 'Cat',
-    selected: false
-  }]);
+  const [currentTheme, setCurrentTheme] = useState('One Piece');
   const [copyArr, setCopyArr] = useState([...characterMap]);
-  const foundTheme = theme.find(({selected}) => selected === true).option;
   const themeData = {
     'One Piece': characterMap,
     'Cat': catArr || []
   };
   const arrlength = copyArr.length;
+  const ref = useRef(currentTheme);
   
   /// --- useEffect -------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    ref.current = currentTheme
+  }, [currentTheme]);
+
   useEffect(() => {
     localStorage.setItem("memoryCard", bestScore);
   }, [bestScore]);
@@ -39,6 +37,9 @@ export const App = () => {
       try {
         const result = await fetchCatData();
         setCatArr(result);
+        if (ref.current === 'Cat') {
+          setCopyArr(result);
+        }
       } catch (error) {
         console.error('Failed to call the function :', error);
       }
@@ -51,15 +52,16 @@ export const App = () => {
     const foundId = selectedId.includes(obj.id);
     const nextScore = currentScore + 1;
     const nextLengthSelectedId = selectedId.length + 1;
-    const arr = themeData[foundTheme];
-    if (nextLengthSelectedId === arrlength) {
-      setWin(true);
-    }
+    const arr = themeData[currentTheme];
+    
     if (!foundId) {
       setSelectedId([...selectedId, obj.id]);
       setCurrentScore(s => s + 1);
       if (nextScore > bestScore) {
         setBestScore(nextScore);
+      }
+      if (nextLengthSelectedId === arrlength) {
+        setWin(true);
       }
       setCopyArr(handleShuffle([...arr]));
     } else {
@@ -76,7 +78,7 @@ export const App = () => {
   };
 
   const handleRestart = () => {
-    const arr = themeData[foundTheme];
+    const arr = themeData[currentTheme];
     setGameOver(false);
     setCurrentScore(0);
     setCopyArr([...arr]);
@@ -88,30 +90,35 @@ export const App = () => {
     setBestScore(0);
   };
 
-  const handleChooseTheme = (e) => {
-    setTheme(p => p.map(item => {
-      if (e.target.dataset.value === item.option) {
-        return {...item, selected: true};
-      }
-      return {...item, selected: false};
-    }));
-    if (e.target.dataset.value === "One Piece") {
+  const handleChooseTheme = (themeName) => {
+    if (themeName === "One Piece") {
+      setCurrentTheme('One Piece');
       setCopyArr([...characterMap]);
-    } else if (e.target.dataset.value === "Cat") {
-      setCopyArr(catArr);
+    } else if (themeName === "Cat") {
+      setCurrentTheme('Cat');
+      setCopyArr(catArr || []);
     }
     setCurrentScore(0);
     setGameOver(false);
+    setWin(false);
+    setSelectedId([]);
   };
 
   const handlePlayAgain = () => {
     setWin(false);
     setCurrentScore(0);
     setSelectedId([]);
-  }
+    if (currentTheme === 'One Piece') {
+      setCopyArr(handleShuffle([...characterMap]));
+    } else if (currentTheme === 'Cat') {
+      setCopyArr(handleShuffle([...(catArr || [])]));
+    }
+    
+
+  };
   
   return (
-    <div className={foundTheme === 'One Piece' ? 'main-container-op' : 'main-container-cat'}>
+    <div className={currentTheme === 'One Piece' ? 'main-container-op' : 'main-container-cat'}>
       <div className="score-container">
         <div className="current-score-container">
           <p className='current-score'>{currentScore}</p>
@@ -119,16 +126,16 @@ export const App = () => {
         <p className='main-title'>Memory Game</p>
         <div className='best-score-container'>
           <p className='best-score'>{bestScore}</p>
-          <div className='reset-best-score' onClick={handleResetBestScore}></div>
+          <button className='reset-best-score' onClick={handleResetBestScore} aria-label="Reset best score"></button>
         </div>
       </div>
       <div className="theme-button">
-        <div className='one-piece-button' data-value="One Piece" onClick={handleChooseTheme}></div>
-        <div className='cat-button' data-value="Cat" onClick={handleChooseTheme}></div>
+        <button className='one-piece-button' data-value="One Piece" onClick={() => handleChooseTheme('One Piece')} aria-label="Select One Piece theme"></button>
+        <button className='cat-button' data-value="Cat" onClick={() => handleChooseTheme('Cat')} aria-label="Select Cat theme"></button>
       </div>
       <div className='button-wrapper'>
         {copyArr.map(obj => {
-        return <button key={obj.id} onClick={() => handleClick(obj)} disabled={gameOver}><img  src={obj.url}></img><span className='object-name'>{obj.name}</span></button>
+        return <button key={obj.id} className='card-button' onClick={() => handleClick(obj)} disabled={gameOver || win}><img  src={obj.url}></img><span className='object-name'>{obj.name}</span></button>
       })}
       </div>
       {gameOver ? (
@@ -136,14 +143,14 @@ export const App = () => {
           <div className='game-over'>
             <span className='final-current-score'>{currentScore}</span>
             <span className='final-best-score'>{bestScore}</span>
-            <div className='try-again' onClick={handleRestart}></div>
+            <button className='try-again' onClick={handleRestart} aria-label="Try again"></button>
           </div>
         </div>
       ) : null}
       {win ? (
         <div className='win-UI'>
           <div className='win'>
-            <div className='play-again' onClick={handlePlayAgain}></div>
+            <button className='play-again' onClick={handlePlayAgain} aria-label="Play again"></button>
           </div>
         </div>
       ) : null}

@@ -1,31 +1,12 @@
 :root {
-    --button-active: #e7e7e7;
-    --button-inactive: rgb(241, 241, 241);
-    --button-background: #ebecee;
-    --button-border: #cbcacf;
-    --horizontal-line: #DC143C;
-    --last-name: #DC143C;
-    
-    --bg-main: #2C6E49;
-    
-    --border-light-grey: #E5E7EB;
-
-    --space-xs: 4px;
     --space-sm: 8px;
     --space-md: 16px;
-
-    --font-ui: 'Inter', sans-serif;
-    --font-size-standard: 1rem;
-    --font-size-smaller: 0.75rem;
-
-    --box-shadow-focus: 0 0 0 3px rgba(0, 0, 255, 0.2);
-    --standard-box-padding: 8px 1rem;
 }
 
 @font-face {
     font-family: 'Averia Libre';
-    src: url('./Assets/fonts/AveriaLibre-Bold.woff2') format('woff2'),
-        url('./Assets/fonts/AveriaLibre-Bold.woff') format('woff');
+    src: url('./assets/fonts/AveriaLibre-Bold.woff2') format('woff2'),
+        url('./assets/fonts/AveriaLibre-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -33,8 +14,8 @@
 
 @font-face {
     font-family: 'Inter';
-    src: url('./Assets/fonts/Inter-Regular.woff2') format('woff2'),
-        url('./Assets/fonts/Inter-Regular.woff') format('woff');
+    src: url('./assets/fonts/Inter-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Inter-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -42,8 +23,8 @@
 
 @font-face {
     font-family: 'Courgette';
-    src: url('./Assets/fonts/Courgette-Regular.woff2') format('woff2'),
-        url('./Assets/fonts/Courgette-Regular.woff') format('woff');
+    src: url('./assets/fonts/Courgette-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Courgette-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -51,8 +32,8 @@
 
 @font-face {
     font-family: 'Merienda';
-    src: url('./Assets/fonts/Merienda-Regular.woff2') format('woff2'),
-        url('./Assets/fonts/Merienda-Regular.woff') format('woff');
+    src: url('./assets/fonts/Merienda-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Merienda-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -65,22 +46,22 @@
 }
 
 body {
-  min-width: 100vh;
+  width: 100%;
   min-height: 100vh;
 }
 
 .main-container-op {
-  min-width: 100vh;
+  width: 100%;
   min-height: 100vh;
-  background-image: url('/onepiecebackground.png');
+  background-image: url('./assets/onepiecebackground2.avif');
   background-size: cover;
   position: relative;
 }
 
 .main-container-cat {
-  min-width: 100vh;
+  width: 100%;
   min-height: 100vh;
-  background-image: url('/catbackground2.jpg');
+  background-image: url('./assets/catbackground2.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
@@ -92,19 +73,18 @@ img {
   padding: var(--space-sm);
 }
 
-button {
+.card-button {
   display: flex;
   flex-direction: column;
   border-radius: var(--space-sm);
 }
 
 .object-name {
-  /* font-family: 'Merienda'; */
   font-family: 'Courgette';
   font-size: large;
 }
 
-button:hover {
+.card-button:hover {
   cursor: pointer;
   box-shadow: 0.1em 0.1em 2.5em rgb(255 247 0 / 80%);
 }
@@ -117,7 +97,6 @@ button:hover {
   font-size: 4.5rem;
   color: white;
   text-shadow: 0 0 10px rgb(255, 247, 0), 0 0 20px #ff8800, 0 0 30px #ff5500;
-  /* background: linear-gradient(.25turn, rgb(0, 0, 255, 0.3), black, rgb(0, 0, 255, 0.3)) */
 }
 
 .button-wrapper {
@@ -132,7 +111,7 @@ button:hover {
 }
 
 .best-score-container {
-  background-image: url('/bestscoreboard.png');
+  background-image: url('./assets/bestscoreboard.avif');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -158,7 +137,7 @@ button:hover {
 }
 
 .current-score-container {
-  background-image: url('/currentscoreboard.png');
+  background-image: url('./assets/currentscoreboard.avif');
   background-size: contain;
   background-repeat: no-repeat;
   width: 350px;
@@ -181,8 +160,36 @@ button:hover {
   justify-content: center;
 }
 
+.reset-best-score,
+.one-piece-button,
+.cat-button,
+.try-again,
+.play-again {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.05s ease;
+}
+
+.reset-best-score:hover,
+.one-piece-button:hover,
+.cat-button:hover,
+.try-again:hover,
+.play-again:hover {
+  transform: scale(1.05);
+}
+
+.reset-best-score:active,
+.one-piece-button:active,
+.cat-button:active,
+.try-again:active,
+.play-again:active {
+  transform: scale(0.95);
+}
+
 .reset-best-score {
-  background-image: url('/resetbestscorebutton2.png');
+  background-image: url('./assets/resetbestscorebutton2.avif');
   background-size: cover;
   background-repeat: no-repeat;
   width: 150px;
@@ -192,20 +199,6 @@ button:hover {
   left: 345px;
 }
 
-.reset-best-score:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.05s ease;
-}
-
-.reset-best-score:active {
-  /* box-shadow:
-      inset -2px -2px 3px rgb(255 255 255 / 0.6),
-      inset 2px 2px 3px rgb(0 0 0 / 0.6); */
-  transform: scale(0.95); 
-  transition: transform 0.05s ease;
-}
-
 .theme-button {
   display: flex;
   justify-content: center;
@@ -213,58 +206,37 @@ button:hover {
 }
 
 .one-piece-button {
-  background-image: url('/onepiecebutton2.png');
+  background-image: url('./assets/onepiecebutton.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 2676 / 1140;
   width: 150px;
 }
 
-.one-piece-button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.05s ease;
-}
-
-.one-piece-button:active {
-  transform: scale(0.95); 
-  transition: transform 0.05s ease;
-}
-
 .cat-button {
-  background-image: url('/catbutton2.png');
+  background-image: url('./assets/catbutton2.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 1358 / 1314;
   width: 70px;
 }
 
-.cat-button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.05s ease;
-}
-
-.cat-button:active {
-  transform: scale(0.95); 
-  transition: transform 0.05s ease;
-}
-
-.game-over-UI {
+.game-over-UI,
+.win-UI {
   background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
   backdrop-filter: blur(5px);            /* Blur the background */
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 0;
+  top: 0;
   left: 0;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .game-over {
-  background-image: url('/gameoverUI.png');
+  background-image: url('./assets/gameoverUI.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 1792 / 2390;
@@ -295,7 +267,7 @@ button:hover {
 }
 
 .try-again {
-  background-image: url('/tryagainbutton.png');
+  background-image: url('./assets/tryagainbutton2.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 4096 / 2414;
@@ -306,31 +278,8 @@ button:hover {
 
 }
 
-.try-again:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.05s ease;
-}
-
-.try-again:active {
-  transform: scale(0.95); 
-  transition: transform 0.05s ease;
-}
-
-.win-UI {
-  background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
-  backdrop-filter: blur(5px);            /* Blur the background */
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  bottom: 0px;
-}
-
 .win {
-  background-image: url('/congratulations.png');
+  background-image: url('./assets/congratulations.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 2604 / 1868;
@@ -339,7 +288,7 @@ button:hover {
 }
 
 .play-again {
-  background-image: url('/playagainbutton2.png');
+  background-image: url('./assets/playagainbutton2.avif');
   background-size: contain;
   background-repeat: no-repeat;
   aspect-ratio: 2620 / 962;
@@ -347,15 +296,4 @@ button:hover {
   position: absolute;
   top: 250px;
   left: 170px;
-}
-
-.play-again:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.05s ease;
-}
-
-.play-again:active {
-  transform: scale(0.95); 
-  transition: transform 0.05s ease;
 }
