@@ -1,6 +1,6 @@
 # Memory Card Game
 
-[Live Demo](memory-card-top-project.vercel.app)
+[Live Demo](https://memory-card-top-project.vercel.app)
 
 This is a fast-paced memory card game built with React. I created this project to master React state management, asynchronous data fetching, and asset performance optimisation as part of The Odin Project's React curriculum.
 
